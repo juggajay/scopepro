@@ -41,12 +41,8 @@ export default function LoginPage() {
       } else if (result.redirect) {
         router.push(result.redirect.toString());
       }
-    } catch (err) {
-      setError(
-        err instanceof Error
-          ? err.message
-          : "Could not sign in. Check your email and password."
-      );
+    } catch {
+      setError("Invalid email or password. Please try again.");
     } finally {
       setLoading(false);
     }

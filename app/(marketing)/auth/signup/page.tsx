@@ -53,12 +53,8 @@ export default function SignupPage() {
       } else if (result.redirect) {
         router.push(result.redirect.toString());
       }
-    } catch (err) {
-      setError(
-        err instanceof Error
-          ? err.message
-          : "Could not create account. Please try again."
-      );
+    } catch {
+      setError("Could not create account. The email may already be in use, or try a stronger password.");
     } finally {
       setLoading(false);
     }

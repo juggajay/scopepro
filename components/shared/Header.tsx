@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useAuthActions } from "@convex-dev/auth/react";
 import { useConvexAuth } from "convex/react";
 import { Button } from "@/components/ui/button";
@@ -16,6 +17,7 @@ import { User, LogOut, Settings, LayoutDashboard, Coins } from "lucide-react";
 export function Header() {
   const { isAuthenticated, isLoading } = useConvexAuth();
   const { signOut } = useAuthActions();
+  const router = useRouter();
 
   return (
     <header className="border-b border-border bg-card">
@@ -55,7 +57,7 @@ export function Header() {
                     Settings
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => void signOut()}>
+                  <DropdownMenuItem onClick={() => void signOut().then(() => router.push("/"))}>
                     <LogOut className="mr-2 h-4 w-4" />
                     Sign out
                   </DropdownMenuItem>
