@@ -232,8 +232,16 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="mt-12 overflow-x-auto">
-            <table className="w-full min-w-[520px] text-left">
+          {/* Mobile: stacked cards */}
+          <div className="mt-12 grid gap-4 sm:hidden">
+            <PricingCard name="Starter" credits={10} price={29} perScope="$2.90" />
+            <PricingCard name="Professional" credits={25} price={59} perScope="$2.36" popular />
+            <PricingCard name="Premium" credits={50} price={99} perScope="$1.98" />
+          </div>
+
+          {/* Desktop: table */}
+          <div className="mt-12 hidden sm:block">
+            <table className="w-full text-left">
               <thead>
                 <tr className="border-b-2 border-foreground/10">
                   <th className="pb-4 pr-4 text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">
@@ -269,6 +277,81 @@ export default function LandingPage() {
                 No credit card needed. Try it on a real job before you buy.
               </span>
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── TESTIMONIALS ─── */}
+      <section className="relative py-20 sm:py-28">
+        <div className="absolute inset-0 bg-[oklch(0.975_0.005_55)]" />
+        <div className="relative mx-auto max-w-6xl px-4">
+          <div className="mb-12 max-w-lg">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
+              From the field
+            </p>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-[2.5rem] sm:leading-tight">
+              What painters are saying.
+            </h2>
+          </div>
+          <div className="grid gap-6 sm:grid-cols-3">
+            <Testimonial
+              quote="I knocked out 6 scopes before lunch. Used to take me half a day to write one properly."
+              name="Dave M."
+              location="Sydney, NSW"
+              role="Residential painter, 12 years"
+            />
+            <Testimonial
+              quote="The AI picks up stuff I'd forget — caulking, stain-blocking, access equipment. My scopes are more thorough now."
+              name="Sarah K."
+              location="Melbourne, VIC"
+              role="Commercial painting contractor"
+            />
+            <Testimonial
+              quote="Clients take me more seriously when I hand over a proper scope with quantities. Won two jobs last week off the back of it."
+              name="Mick R."
+              location="Brisbane, QLD"
+              role="Owner, MR Painting Services"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* ─── FAQ ─── */}
+      <section className="py-20 sm:py-28">
+        <div className="mx-auto max-w-6xl px-4">
+          <div className="mb-12 max-w-lg">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
+              FAQ
+            </p>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-[2.5rem] sm:leading-tight">
+              Common questions.
+            </h2>
+          </div>
+          <div className="mx-auto max-w-3xl space-y-6">
+            <FaqItem
+              question="How accurate is the AI?"
+              answer="The AI analyses your photos and job details to generate scope items with quantities. It gets the structure right every time — prep, prime, paint, clean. You should always review quantities on-site, just like you would with any estimate. That's why every item is editable."
+            />
+            <FaqItem
+              question="Can I edit the scope after it's generated?"
+              answer="Yes. Every item can be edited, added, removed, or toggled on/off. Change descriptions, adjust quantities, add items the AI missed. It's your scope — the AI just gives you a head start."
+            />
+            <FaqItem
+              question="What if the AI gets it wrong?"
+              answer="If the generation fails completely, your credit is refunded automatically. If the output needs tweaking, that's what the editor is for. The AI handles the tedious part (listing every prep step, every surface, every coat), and you handle the judgement calls."
+            />
+            <FaqItem
+              question="Do credits expire?"
+              answer="No. Credits never expire. Buy when you need them, use them whenever."
+            />
+            <FaqItem
+              question="Can I add my logo to the PDF?"
+              answer="Yes. Complete your business profile (business name, ABN, phone, address) and your details appear on every scope PDF you generate. Logo upload is coming soon."
+            />
+            <FaqItem
+              question="Is my data safe?"
+              answer="Photos and job details are processed by Google's Gemini AI and stored on Convex Cloud. We don't use your data to train AI models. You can delete your account and all data at any time."
+            />
           </div>
         </div>
       </section>
@@ -452,5 +535,104 @@ function PricingRow({
         </Button>
       </td>
     </tr>
+  );
+}
+
+/* ─── Pricing Card (mobile) ─── */
+
+function PricingCard({
+  name,
+  credits,
+  price,
+  perScope,
+  popular,
+}: {
+  name: string;
+  credits: number;
+  price: number;
+  perScope: string;
+  popular?: boolean;
+}) {
+  return (
+    <div
+      className={`rounded-xl border p-5 ${
+        popular
+          ? "border-primary/30 bg-primary/[0.03] ring-1 ring-primary/20"
+          : "border-border bg-card"
+      }`}
+    >
+      <div className="flex items-center justify-between">
+        <div>
+          <span className="text-base font-bold">{name}</span>
+          {popular && (
+            <span className="ml-2 inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-bold text-primary">
+              Most Popular
+            </span>
+          )}
+        </div>
+        <div className="text-right">
+          <span className="text-2xl font-bold">${price}</span>
+          <span className="text-sm text-muted-foreground"> AUD</span>
+        </div>
+      </div>
+      <div className="mt-2 flex items-center justify-between text-sm text-muted-foreground">
+        <span>{credits} credits</span>
+        <span>{perScope} per scope</span>
+      </div>
+      <Button
+        variant={popular ? "default" : "outline"}
+        className={`mt-4 h-11 w-full ${popular ? "shadow-sm shadow-primary/20" : ""}`}
+        render={<Link href="/auth/signup" />}
+      >
+        Get started
+      </Button>
+    </div>
+  );
+}
+
+/* ─── Testimonial ─── */
+
+function Testimonial({
+  quote,
+  name,
+  location,
+  role,
+}: {
+  quote: string;
+  name: string;
+  location: string;
+  role: string;
+}) {
+  return (
+    <div className="flex h-full flex-col rounded-xl border border-border bg-card p-6">
+      <p className="flex-1 text-sm leading-relaxed text-foreground/80">
+        &ldquo;{quote}&rdquo;
+      </p>
+      <div className="mt-4 border-t border-border/60 pt-4">
+        <p className="text-sm font-bold">{name}</p>
+        <p className="text-xs text-muted-foreground">
+          {role} &middot; {location}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+/* ─── FAQ ─── */
+
+function FaqItem({
+  question,
+  answer,
+}: {
+  question: string;
+  answer: string;
+}) {
+  return (
+    <div className="rounded-lg border border-border bg-card px-6 py-5">
+      <h3 className="text-[15px] font-bold">{question}</h3>
+      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+        {answer}
+      </p>
+    </div>
   );
 }

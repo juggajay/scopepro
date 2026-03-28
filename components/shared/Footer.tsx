@@ -7,7 +7,10 @@ export function Footer() {
         <p className="text-sm text-muted-foreground">
           &copy; {new Date().getFullYear()} ScopePro. Built by a tradie, for tradies.
         </p>
-        <nav className="flex gap-4 text-sm text-muted-foreground">
+        <nav className="flex items-center gap-4 text-sm text-muted-foreground">
+          <a href="mailto:hello@scopepro.com.au" className="hover:text-foreground">
+            Support
+          </a>
           <Link href="/privacy" className="hover:text-foreground">
             Privacy
           </Link>
