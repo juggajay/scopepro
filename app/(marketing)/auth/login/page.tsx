@@ -53,7 +53,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="mx-auto flex min-h-[60vh] max-w-sm items-center px-4 py-16 sm:py-24">
+    <div className="mx-auto flex min-h-0 max-w-sm items-center px-4 py-6 sm:min-h-[60vh] sm:py-24">
       <Card className="w-full">
         <CardHeader>
           <CardTitle className="text-xl">Log in to ScopePro</CardTitle>
@@ -98,7 +98,7 @@ export default function LoginPage() {
 
             <Button
               type="submit"
-              className="w-full"
+              className="w-full h-11"
               disabled={loading}
             >
               {loading ? "Signing in\u2026" : "Log in"}

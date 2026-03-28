@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Geist_Mono } from "next/font/google";
 import { ConvexAuthNextjsServerProvider } from "@convex-dev/auth/nextjs/server";
 import { Providers } from "@/components/providers";
@@ -22,6 +22,12 @@ export const metadata: Metadata = {
   description:
     "Generate professional painting scopes of work in under 2 minutes. Upload photos, get a branded PDF. Built for Australian painting contractors.",
   metadataBase: new URL("https://scopepro.com.au"),
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
 };
 
 export default function RootLayout({
